@@ -1,0 +1,475 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Assignment4</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-06"><meta name="DC.source" content="Assignment4.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput">R1 = 1;
+C = 0.25;
+R2 = 2;
+L = 0.2;
+R3 = 10;
+a = 100;
+R4 = 0.1;
+R0 = 1000;
+G1 = 1/R1 + 1/R2;
+G2 = -a*1/R3*(1/R4 + 1/R0);
+G3 = 1/R4 + 1/R0;
+G = [1/R1 -1/R1 0 0 0 1 0;
+    -1/R1 G1 0 0 0 0 1;
+    0 0 1/R3 0 0 0 -1;
+    0 0 0 1 0 0 -a;
+    0 0 0 -1/R4 G3 0 0;
+    0 1 -1 0 0 0 0;
+    1 0 0 0 0 0 0];
+Cvals = [C -C 0 0 0 0 0;
+        -C C 0 0 0 0 0;
+        0 0 0 0 0 0 0;
+        0 0 0 0 0 0 0;
+        0 0 0 0 0 0 0;
+        0 0 0 0 0 0 -L;
+        0 0 0 0 0 0 0];
+Vline = linspace(-10, 10, 100);
+count = 1;
+V0 = zeros(21,1);
+V3 = zeros(21,1);
+V1 = zeros(21,1);
+<span class="keyword">for</span> i=-10:10
+    F = [0; 0; 0; 0; 0; 0; i];
+    V = G\F;
+    j = i +11;
+    V0(j) = V(5);
+    V3(j) = V(3);
+
+<span class="keyword">end</span>
+figure(1)
+plot([-10:10], real(V0))
+plot([-10:10], real(V3))
+
+
+<span class="keyword">for</span> i=1:100
+    F = [0; 0; 0; 0; 0; 0; i];
+    V = (G+1i*i*C)\F;
+    V3(i) = V(5);
+<span class="keyword">end</span>
+figure(2)
+plot([1:100],real(V3))
+
+figure(3)
+semilogx(w,10*log10(real(V3)/1))
+
+<span class="keyword">for</span> i = 1:10000
+    w = pi+randn(1)*0.05;
+    F = [0; 0; 0; 0; 0; 0; i];
+    V = (G+1i*w*C)\F;
+    V3(i) = V(5);
+<span class="keyword">end</span>
+A = 10*log10(real(V3)/1);
+figure(4)
+<span class="comment">%hist(A, 20)</span>
+
+
+<span class="comment">%Part 2</span>
+dt = 0.001;
+A = C/dt + G;
+endtime = 1000*dt;
+time = 0;
+Vold = zeros(1,1000);
+count = 1;
+V0B = zeros(1000,1);
+V3B = zeros(1000,1);
+V1B = zeros(1000,1);
+<span class="keyword">for</span> i = dt:dt:endtime
+    <span class="keyword">if</span> count &gt; 30
+        F = [0; 0; 0; 0; 0; 0; 0];
+        V = G\F;
+        V0B(count) = i;
+        V3B(count) = V(3);
+    <span class="keyword">else</span>
+        F = [0; 0; 0; 0; 0; 0; 1];
+        V = A\(F + C*Vold./dt);
+        Vold = V;
+        V1B(count) = i;
+        V0B(count) = V(5);
+        V3B(count) = V(3);
+    <span class="keyword">end</span>
+    count = count + 1;
+<span class="keyword">end</span>
+
+figure(5)
+plot(V1B, V0B)
+plot(V1B, V3B)
+
+V0F = fft(V0B);
+V3F = fft(V3B);
+V0Fshift = fftshift(V0F);
+V3Fshift = fftshift(V3F);
+
+figure(6)
+semilogy(abs(V3Fshift))
+hold <span class="string">on</span>
+semilogy(abs(V0Fshift));
+
+count = 1;
+<span class="keyword">for</span> i = dt:dt:endtime
+    s = sin(2*pi*(1/0.03)*i);
+    F = [0; 0; 0; 0; 0; 0; s];
+    V = A\(F + C*Vold./dt);
+    Vold = V;
+    V1B(count) = i;
+    V0B(count) = V(5);
+    V3B(count) = s;
+    count = count +1;
+<span class="keyword">end</span>
+
+figure(7)
+plot(V1B, V0B)
+hold <span class="string">on</span>
+plot(V1B, V3B)
+
+V0F = fft(V0B);
+V3F = fft(V3B);
+V0Fshift = fftshift(V0F);
+V3Fshift = fftshift(V3F);
+
+figure(8)
+semilogy(abs(V0Fshift));
+hold <span class="string">on</span>
+semilogy(abs(V3Fshift));
+
+count = 1;
+<span class="keyword">for</span> i = dt:dt:endtime
+    s = exp(-(i-0.06).^2/(2*dt));
+    V = A\(F + C*Vold./dt);
+    Vold = V;
+    V1B(count) = i;
+    V0B(count) = V(5);
+    V3B(count) = s;
+    count = count +1;
+<span class="keyword">end</span>
+
+figure(9)
+plot(V1B, V0B)
+hold <span class="string">on</span>
+plot(V1B, V3B)
+
+V0F = fft(V0B);
+V3F = fft(V3B);
+V0Fshift = fftshift(V0F);
+V3Fshift = fftshift(V3F);
+
+figure(10)
+semilogy(abs(V0Fshift));
+hold <span class="string">on</span>
+semilogy(abs(V3Fshift));
+
+<span class="comment">%part 3</span>
+Cn = 0.0001;
+  C = [C -C 0 0 0 0 0;
+    -C C 0 0 0 0 0;
+     0 0 Cn 0 0 0 0;
+     0 0 0 0 0 0 0;
+     0 0 0 0 0 0 0;
+     0 0 0 0 0 0 -L;
+     0 0 0 0 0 0 0];
+ count = 1;
+ <span class="keyword">for</span> i = dt:dt:endtime
+     s = exp(-(i-0.06).^2/(2*dt));
+     ran = randn(1,1)*0.01;
+     F = [0 0 ran 0 0 0 s];
+     V = A\(F + C*Vold./dt);
+     Vold = V;
+     V1B(count) = i;
+     V0B(count) = V(5);
+     V3B(count) = s;
+     count = count + 1;
+ <span class="keyword">end</span>
+
+figure(11)
+plot(V1B,V0B)
+hold <span class="string">on</span>
+plot(V1B,V3B)
+
+V0F = fft(V0B);
+V3F = fft(V3B);
+V0Fshift = fftshift(V0F);
+V3Fshift = fftshift(V3F);
+
+figure(12)
+semilogy(abs(V0Fshift));
+hold <span class="string">on</span>
+semilogy(abs(V3Fshift));
+</pre><pre class="codeoutput">Warning: Imaginary parts of complex X and/or Y arguments ignored 
+</pre><pre class="codeoutput error">Matrix dimensions must agree.
+
+Error in Assignment4 (line 174)
+     V = A\(F + C*Vold./dt);
+</pre><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+R1 = 1;
+C = 0.25;
+R2 = 2;
+L = 0.2;
+R3 = 10;
+a = 100;
+R4 = 0.1;
+R0 = 1000;
+G1 = 1/R1 + 1/R2;
+G2 = -a*1/R3*(1/R4 + 1/R0);
+G3 = 1/R4 + 1/R0;
+G = [1/R1 -1/R1 0 0 0 1 0;
+    -1/R1 G1 0 0 0 0 1;
+    0 0 1/R3 0 0 0 -1;
+    0 0 0 1 0 0 -a;
+    0 0 0 -1/R4 G3 0 0;
+    0 1 -1 0 0 0 0;
+    1 0 0 0 0 0 0];
+Cvals = [C -C 0 0 0 0 0;
+        -C C 0 0 0 0 0;
+        0 0 0 0 0 0 0;
+        0 0 0 0 0 0 0;
+        0 0 0 0 0 0 0;
+        0 0 0 0 0 0 -L;
+        0 0 0 0 0 0 0];
+Vline = linspace(-10, 10, 100);
+count = 1;
+V0 = zeros(21,1);
+V3 = zeros(21,1);
+V1 = zeros(21,1);
+for i=-10:10
+    F = [0; 0; 0; 0; 0; 0; i];
+    V = G\F;
+    j = i +11;
+    V0(j) = V(5);
+    V3(j) = V(3);
+    
+end
+figure(1)
+plot([-10:10], real(V0))
+plot([-10:10], real(V3))
+
+
+for i=1:100
+    F = [0; 0; 0; 0; 0; 0; i];
+    V = (G+1i*i*C)\F;
+    V3(i) = V(5);
+end
+figure(2)
+plot([1:100],real(V3))
+
+figure(3)
+semilogx(w,10*log10(real(V3)/1))
+
+for i = 1:10000
+    w = pi+randn(1)*0.05;
+    F = [0; 0; 0; 0; 0; 0; i];
+    V = (G+1i*w*C)\F;
+    V3(i) = V(5);
+end
+A = 10*log10(real(V3)/1);
+figure(4)
+%hist(A, 20)
+
+
+%Part 2
+dt = 0.001;
+A = C/dt + G;
+endtime = 1000*dt;
+time = 0;
+Vold = zeros(1,1000);
+count = 1;
+V0B = zeros(1000,1);
+V3B = zeros(1000,1);
+V1B = zeros(1000,1);
+for i = dt:dt:endtime
+    if count > 30
+        F = [0; 0; 0; 0; 0; 0; 0];
+        V = G\F;
+        V0B(count) = i;
+        V3B(count) = V(3);
+    else
+        F = [0; 0; 0; 0; 0; 0; 1];
+        V = A\(F + C*Vold./dt);
+        Vold = V;
+        V1B(count) = i;
+        V0B(count) = V(5);
+        V3B(count) = V(3);
+    end
+    count = count + 1;
+end
+
+figure(5)
+plot(V1B, V0B)
+plot(V1B, V3B)
+
+V0F = fft(V0B);
+V3F = fft(V3B);
+V0Fshift = fftshift(V0F);
+V3Fshift = fftshift(V3F);
+
+figure(6)
+semilogy(abs(V3Fshift))
+hold on
+semilogy(abs(V0Fshift));
+
+count = 1;
+for i = dt:dt:endtime
+    s = sin(2*pi*(1/0.03)*i);
+    F = [0; 0; 0; 0; 0; 0; s];
+    V = A\(F + C*Vold./dt);
+    Vold = V;
+    V1B(count) = i;
+    V0B(count) = V(5);
+    V3B(count) = s;
+    count = count +1;
+end
+
+figure(7)
+plot(V1B, V0B)
+hold on
+plot(V1B, V3B)
+
+V0F = fft(V0B);
+V3F = fft(V3B);
+V0Fshift = fftshift(V0F);
+V3Fshift = fftshift(V3F);
+
+figure(8)
+semilogy(abs(V0Fshift));
+hold on
+semilogy(abs(V3Fshift));
+
+count = 1;
+for i = dt:dt:endtime
+    s = exp(-(i-0.06).^2/(2*dt));
+    V = A\(F + C*Vold./dt);
+    Vold = V;
+    V1B(count) = i;
+    V0B(count) = V(5);
+    V3B(count) = s;
+    count = count +1;
+end
+
+figure(9)
+plot(V1B, V0B)
+hold on
+plot(V1B, V3B)
+
+V0F = fft(V0B);
+V3F = fft(V3B);
+V0Fshift = fftshift(V0F);
+V3Fshift = fftshift(V3F);
+
+figure(10)
+semilogy(abs(V0Fshift));
+hold on
+semilogy(abs(V3Fshift));
+
+%part 3
+Cn = 0.0001;
+  C = [C -C 0 0 0 0 0;
+    -C C 0 0 0 0 0;
+     0 0 Cn 0 0 0 0;
+     0 0 0 0 0 0 0;
+     0 0 0 0 0 0 0;
+     0 0 0 0 0 0 -L;
+     0 0 0 0 0 0 0];
+ count = 1;
+ for i = dt:dt:endtime
+     s = exp(-(i-0.06).^2/(2*dt));
+     ran = randn(1,1)*0.01;
+     F = [0 0 ran 0 0 0 s];
+     V = A\(F + C*Vold./dt);
+     Vold = V;
+     V1B(count) = i;
+     V0B(count) = V(5);
+     V3B(count) = s;
+     count = count + 1;
+ end
+ 
+figure(11)
+plot(V1B,V0B)
+hold on
+plot(V1B,V3B)
+
+V0F = fft(V0B);
+V3F = fft(V3B);
+V0Fshift = fftshift(V0F);
+V3Fshift = fftshift(V3F);
+
+figure(12)
+semilogy(abs(V0Fshift));
+hold on
+semilogy(abs(V3Fshift));
+
+    
+
+
+
+
+    
+    
+##### SOURCE END #####
+--></body></html>
